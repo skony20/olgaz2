@@ -89,3 +89,30 @@ a.desc:after {
     padding: 10px 20px;
     margin: 0 0 15px 0;
 }
+.row_post 
+{
+    border: 1px solid #666666;
+}
+.row_cont
+{
+
+    display: inline-block;
+}
+.more
+{
+    display:none;
+}
+
+.active
+{
+    background-color: #CFC
+}
+.unactive
+{
+    background-color: #eed3d7
+}
+.editor
+{
+    float:right;
+    font-size:10px;
+}
