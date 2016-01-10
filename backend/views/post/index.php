@@ -7,6 +7,7 @@ use app\models\Post;
 use app\models\User;
 use yii\widgets\ActiveForm;
 use app\models\UploadForm;
+use dosamigos\fileupload\FileUploadUI;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
@@ -45,10 +46,33 @@ $oUF = new UploadForm();
           <div class="row more more_<?=$PostValue['id']?>">
               <div class="content"><?=$PostValue['content']?></div>
               <div class="pictures">
-                    <span class="picTitle">Obrazki do wpisu</span>
-
-                    <?= Html::button('dodaj obrazek', ['value' => Url::to(['UploadForm/add']), 'title' => 'Dodaj obrazek', 'class' => 'showModalButton btn btn-success']); ?>
-
+                    <div class="picTitle">Obrazki do wpisu</div>
+                    <div class="add_picture">
+                   <?= FileUploadUI::widget([
+                    'model' => $oUF,
+                    'attribute' => 'image',
+                    'url' => ['upload-form/upload', 'id' => $PostValue['id']],
+                    'gallery' => false,
+                    'fieldOptions' => [
+                            'accept' => 'image/*'
+                    ],
+                    'clientOptions' => [
+                            'maxFileSize' => 9000000
+                    ],
+                    // ...
+                    'clientEvents' => [
+                            'fileuploaddone' => 'function(e, data) {
+                                                    console.log(e);
+                                                    console.log(data);
+                                                }',
+                            'fileuploadfail' => 'function(e, data) {
+                                                    console.log(e);
+                                                    console.log(data);
+                                                }',
+                    ],
+                    ]);
+                    ?>
+                    </div>
               
               </div>
           </div>

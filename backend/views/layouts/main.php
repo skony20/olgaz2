@@ -65,6 +65,18 @@ yii\bootstrap\Modal::begin([
 echo "<div id='modalContent'></div>";
 yii\bootstrap\Modal::end();
 ?>
+<?php
+yii\bootstrap\Modal::begin([
+    'header' => '<span id="modal2HeaderTitle"></span>',
+    'headerOptions' => ['id' => 'moda2lHeader'],
+    'id' => 'modal2',
+    'size' => 'modal-lg',
+    'closeButton' =>['tag'=>'close', 'label'=> 'Zamknij'],
+    'clientOptions' => ['backdrop' => 1, 'keyboard' =>True]
+]);
+echo "<div id='modal2Content'></div>";
+yii\bootstrap\Modal::end();
+?>
     <div class="container">
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],

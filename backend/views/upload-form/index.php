@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use dosamigos\fileupload\FileUploadUI;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -11,13 +12,102 @@ $this->params['breadcrumbs'][] = $this->title;
 <?php
 use yii\widgets\ActiveForm;
 use app\models\UploadForm;
-$model = new UploadForm;
+$model = new UploadForm();
 ?>
 
-<?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]) ?>
-
-    <?= $form->field($model, 'imageFiles[]')->fileInput(['multiple' => true, 'accept' => 'image/*']) ?>
-
-    <button>Submit</button>
-
-<?php ActiveForm::end() ?>
+<?= FileUploadUI::widget([
+    'model' => $model,
+    'attribute' => 'image',
+    'url' => ['upload-form/upload', 'id' => '8'],
+    'gallery' => false,
+    'fieldOptions' => [
+            'accept' => 'image/*'
+    ],
+    'clientOptions' => [
+            'maxFileSize' => 9000000
+    ],
+    // ...
+    'clientEvents' => [
+            'fileuploaddone' => 'function(e, data) {
+                                    console.log(e);
+                                    console.log(data);
+                                }',
+            'fileuploadfail' => 'function(e, data) {
+                                    console.log(e);
+                                    console.log(data);
+                                }',
+    ],
+]);
+?>
+<?= FileUploadUI::widget([
+    'model' => $model,
+    'attribute' => 'image',
+    'url' => ['upload-form/upload', 'id' => '9'],
+    'gallery' => false,
+    'fieldOptions' => [
+            'accept' => 'image/*'
+    ],
+    'clientOptions' => [
+            'maxFileSize' => 9000000
+    ],
+    // ...
+    'clientEvents' => [
+            'fileuploaddone' => 'function(e, data) {
+                                    console.log(e);
+                                    console.log(data);
+                                }',
+            'fileuploadfail' => 'function(e, data) {
+                                    console.log(e);
+                                    console.log(data);
+                                }',
+    ],
+]);
+?>
+<?= FileUploadUI::widget([
+    'model' => $model,
+    'attribute' => 'image',
+    'url' => ['upload-form/upload', 'id' => '2'],
+    'gallery' => false,
+    'fieldOptions' => [
+            'accept' => 'image/*'
+    ],
+    'clientOptions' => [
+            'maxFileSize' => 9000000
+    ],
+    // ...
+    'clientEvents' => [
+            'fileuploaddone' => 'function(e, data) {
+                                    console.log(e);
+                                    console.log(data);
+                                }',
+            'fileuploadfail' => 'function(e, data) {
+                                    console.log(e);
+                                    console.log(data);
+                                }',
+    ],
+]);
+?>
+<?= FileUploadUI::widget([
+    'model' => $model,
+    'attribute' => 'image',
+    'url' => ['upload-form/upload', 'id' => '1'],
+    'gallery' => false,
+    'fieldOptions' => [
+            'accept' => 'image/*'
+    ],
+    'clientOptions' => [
+            'maxFileSize' => 9000000
+    ],
+    // ...
+    'clientEvents' => [
+            'fileuploaddone' => 'function(e, data) {
+                                    console.log(e);
+                                    console.log(data);
+                                }',
+            'fileuploadfail' => 'function(e, data) {
+                                    console.log(e);
+                                    console.log(data);
+                                }',
+    ],
+]);
+?>

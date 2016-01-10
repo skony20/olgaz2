@@ -1,17 +1,18 @@
 <?php
 
 use yii\helpers\Html;
-use yii\helpers\ArrayHelper;
+use yii\grid\GridView;
+?>
+<?php
 use yii\widgets\ActiveForm;
-use app\models\Roles;
-
-/* @var $this yii\web\View */
-/* @var $model app\models\User */
-/* @var $form yii\widgets\ActiveForm */
+use app\models\UploadForm;
+$model = new UploadForm;
 ?>
 
-<div class="upload-form-form">
+<?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data'],  'id' => 'AddPostImages']) ?>
 
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+    <?= $form->field($model, 'imageFiles[]')->fileInput(['multiple' => true, 'accept' => 'image/*']) ?>
 
-</div>
+    <button>Submit</button>
+
+<?php ActiveForm::end() ?>
