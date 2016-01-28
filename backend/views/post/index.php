@@ -15,10 +15,12 @@ $this->title = 'Wpisy';
 $this->params['breadcrumbs'][] = $this->title;
 $oPost = new Post();
 $oUser = new User();
-$oUF = new UploadForm();
+$oUploadForm = new UploadForm();
 $aPost = $dataProvider->getModels(); 
 $aUser = $oUser->findIdentity('1');
 ?>
+<?php $this->registerJsFile(Yii::$app->request->baseUrl.'/js/jquery.cookie.js',['depends' => [\yii\web\JqueryAsset::className()]]); ?>
+
 <div class="post-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
@@ -29,7 +31,7 @@ $aUser = $oUser->findIdentity('1');
 
 
 <?= Html::encode($oPost->id); ?> 
-
+    <div class="all">
     <?php
 
     foreach ($aPost as $PostKey=>$PostValue)
@@ -37,8 +39,7 @@ $aUser = $oUser->findIdentity('1');
         $aUser = $oUser->findIdentity($PostValue['user_id']);
         $aImages = $oPost->getImages($PostValue['id']); // tutaj będzie tabela z obrazkami
     ?>
-        <div class="all">
-            <a> 
+            <div id="<?=$PostValue['id']?>">
             <div class="row_post less <?php echo ($PostValue['is_active'] ? 'active' : 'unactive') ?>" id="<?=$PostValue['id']?>">
                 <div class="row_cont id"><?=$PostValue['id']?></div>
                 <div class="row_cont title"><?=$PostValue['title']?></div>
@@ -46,7 +47,6 @@ $aUser = $oUser->findIdentity('1');
                     Utworzone przez: <?=$aUser['username']?> dnia <?php echo date('Y-m-d h:m:s', $PostValue['data_creation']);?>
                 </div>
             </div>
-                </a>
             <div class="row more more_<?=$PostValue['id']?>" id="<?=$PostValue['id']?>">
                 <div class="content"><?=$PostValue['content']?></div>
                 <div class="pictures">
@@ -59,8 +59,8 @@ $aUser = $oUser->findIdentity('1');
                         <?php foreach ($aImages['files'] as $ImagesKey=>$ImagesValue)
                         {
                             $items[]  = array(
-                            'url' => $sPath.$oUF->sPath.$PostValue['id'].'/'.$oUF->sBig.'/'.$ImagesValue,
-                            'src' => $sPath.$oUF->sPath.$PostValue['id'].'/'.$oUF->sThumb.'/'.$ImagesValue,
+                            'url' => $sPath.$oUploadForm->sPath.$PostValue['id'].'/'.$oUploadForm->sBig.'/'.$ImagesValue,
+                            'src' => $sPath.$oUploadForm->sPath.$PostValue['id'].'/'.$oUploadForm->sThumb.'/'.$ImagesValue,
                             'rel' => $PostValue['id'],
                             'rel2' => $ImagesValue,
                             );
@@ -87,7 +87,7 @@ $aUser = $oUser->findIdentity('1');
                     <div class="add_picture">
                         <?php
                         echo FileInput::widget([
-                            'model' => $oUF,
+                            'model' => $oUploadForm,
                             'name' => 'attachment_'.$PostValue['id'].'[]',
                             'options' => ['multiple' => true],
                             'pluginOptions' => [
@@ -111,13 +111,13 @@ $aUser = $oUser->findIdentity('1');
                     ]) ?>
                     </p>
               </div>
-          </div>
-        </div>
+            </div>
+            </div>
 
     <?php    
     }
     ?>
-
+    </div>
 
 
 

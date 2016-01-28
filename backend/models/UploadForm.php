@@ -1,10 +1,7 @@
 <?php
 namespace app\models;
 
-use Yii;
 use yii\base\Model;
-use yii\web\UploadedFile;
-use yii\web\Response;
 use yii\imagine\Image;
 use Imagine\Image\Box;
 use app\models\Post;
@@ -29,11 +26,7 @@ class UploadForm extends Model
             return false;
     }
     
-    public function validate()
-    {
 
-        return TRUE;
-    }
     public function saveImages()
     {
 

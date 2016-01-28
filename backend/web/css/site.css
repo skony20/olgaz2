@@ -98,6 +98,10 @@ a.desc:after {
 
     display: inline-block;
 }
+.more
+{
+    display:none;
+}
 
 
 .active
@@ -133,12 +137,4 @@ a.DeleteIamgeButton:before
 .DeleteImageLink
 {
     text-align: center;
-}
-.more {
- width:100px;
- color:grey;    
-}
-
-.less {
- cursor:pointer;   
 }

@@ -1,26 +1,25 @@
-$(".more").hide();                                         //Hide .mores
-
-$(window).load(function(){
-  $('.more').not(':hidden')
-      .prev('.less').less("click");                    //Simulate click on visible .more(s) h3(s)
+/* 
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+$(document).ready(
+	function()
+	{
+          var i;
+          var lastChildID =  $('.all').children().last().attr('id');
+          for (i=1; i<=lastChildID; i++)
+          {
+              
+          }   
+        $(".less").click(
+			function() {
+                        
+				var ID = ($(this).attr('id'));
+                        var postId = 'more_' + ID;
+                        element = '.more_' + ID;
+                        $(element).slideToggle('slow');
+                        document.cookie=""+postId+"=YES; expires=Thu, 18 Dec 2013 12:00:00 UTC";
+			}
+		);
 });
-
-$('.less').each(function() {                              //For each .less
-    var theActive = $.cookie($(this).attr('id'));            //Retrieve the cookies
-    if (theActive) {                                         //Verify if cookies exist
-        $('#' + theActive).next(".more").slideDown(300);   //And slide down the respective .more
-    }
-
-});
-
-$(".less").more(                                        //Toggle permits alternate clicks
-   function() {
-    $(this).next('.more').slideDown(300);               //On odd clicks, .more slides down...
-    $.cookie($(this).attr('id'), $(this).attr('id'));        //...and the cookie is set by its ids.
-}, function() {
-    $(this).next('.more').slideUp(300);                 //On even clicks, .more slides up...
-    $.cookie($(this).attr('id'), null);                      //...and the cookie is deleted.
-});
-
-
-
