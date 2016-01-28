@@ -15,16 +15,19 @@ use app\models\Roles;
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'username')->textInput(['maxlength' => true]) ?>
-
+    <?= $form->field($model, 'firstname')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'lastname')->textInput(['maxlength' => true]) ?>
+    <!--
     <?= $form->field($model, 'auth_key')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'password_hash')->textInput(['maxlength' => true]) ?>
-
+    -->
+    <?= $form->field($model, 'password_field')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'password')->hiddenInput(['maxlength' => true, 'value'=>'passwordhash'])->label(false);  ?>
+    <!--
     <?= $form->field($model, 'password_reset_token')->textInput(['maxlength' => true]) ?>
-
+    -->
     <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'status')->textInput() ?>
+    <?= $form->field($model, 'status')->hiddenInput(['value'=>'10'])->label(false);  ?>
 
     <?= $model->isNewRecord ? $form->field($model, 'created_at')->hiddenInput(['value'=>time()])->label(false) :'' ?>
 

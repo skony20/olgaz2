@@ -38,13 +38,19 @@ class LoginForm extends Model
      * @param string $attribute the attribute currently being validated
      * @param array $params the additional name-value pairs given in the rule
      */
-    public function validatePassword($attribute, $params)
+    public function validatePassword()
     {
-        if (!$this->hasErrors()) {
-            $user = $this->getUser();
-            if (!$user || !$user->validatePassword($this->password)) {
-                $this->addError($attribute, 'Incorrect username or password.');
-            }
+        
+        $oUser = new User();
+        $aUser = $oUser->findByUsername($this->username);
+        $sPassword = $aUser['password'];
+        if (Yii::$app->getSecurity()->validatePassword($this->password, $sPassword)) 
+        {
+            return TRUE;
+        } 
+        else 
+        {
+            return FALSE;
         }
     }
 

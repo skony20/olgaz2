@@ -21,6 +21,14 @@ use yii\behaviors\SluggableBehavior;
  */
 class Post extends \yii\db\ActiveRecord
 {
+    
+    public $sPath = '../../images/';
+    public $sThumb = 'thumbs'; //80x80
+    public $iThumbSize = 80;
+    public $sInfo = 'info'; //300x300
+    public $iInfoSize = 300;
+    public $sBig = 'big'; //min 10224
+    public $iBigSize = 1024;
     /**
      * @inheritdoc
      */
@@ -71,5 +79,20 @@ class Post extends \yii\db\ActiveRecord
             'nice_link' => 'Nicename link(niepotrzebny)',
             'category_id' => 'Kategoria',
         ];
+    }
+    
+    public function getImages($id) 
+    {
+        $sPath = $this->sPath.$id.'/'.$this->sThumb;
+        $oFiles = array();
+        $aFiles = array();
+        if (is_dir($sPath)) 
+        {
+            $oFiles = scandir($sPath);
+            $aFiles = array_diff($oFiles, array('.','..'));
+            natsort($aFiles);
+           // echo ' <pre>'. print_r($aFiles, TRUE). '</pre>'; die();
+        }
+        return array('files'=>$aFiles);
     }
 }

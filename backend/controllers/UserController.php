@@ -8,6 +8,7 @@ use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\base\Security;
 
 /**
  * UserController implements the CRUD actions for User model.
@@ -61,14 +62,21 @@ class UserController extends Controller
     public function actionCreate()
     {
         $model = new User();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
+        
+        $post = Yii::$app->request->post();
+        //echo '<pre>' .print_r($post, TRUE). '</pre>'; die();
+        if ($model->load($post)) {
+            $model->password = Yii::$app->security->generatePasswordHash($post['User']['password_field']);
+            $model->auth_key = Yii::$app->security->generateRandomString(20);
+            $model->password_reset_token = Yii::$app->security->generateRandomString(30);
+            if ($model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         }
+        return $this->render('create', [
+            'model' => $model,
+        ]);
+
     }
 
     /**
@@ -81,13 +89,19 @@ class UserController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
+        $post = Yii::$app->request->post();
+        //echo '<pre>' .print_r($post, TRUE). '</pre>'; die();
+        if ($model->load($post)) {
+            $model->password = Yii::$app->security->generatePasswordHash($post['User']['password_field']);
+            $model->auth_key = Yii::$app->security->generateRandomString(20);
+            $model->password_reset_token = Yii::$app->security->generateRandomString(30);
+            if ($model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         }
+        return $this->render('update', [
+            'model' => $model,
+        ]);
     }
 
     /**
@@ -118,4 +132,5 @@ class UserController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
 }

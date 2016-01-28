@@ -98,10 +98,7 @@ a.desc:after {
 
     display: inline-block;
 }
-.more
-{
-    display:none;
-}
+
 
 .active
 {
@@ -115,4 +112,33 @@ a.desc:after {
 {
     float:right;
     font-size:10px;
+}
+.all_images
+{
+    display:inline-block;
+}
+a.DeleteIamgeButton
+{
+    color:#800000;
+    text-decoration: none;
+    font-size:10px;
+    
+}
+a.DeleteIamgeButton:before
+{
+    font-family: 'Glyphicons Halflings';
+    content:"\e014";
+    font-size:10px;
+}
+.DeleteImageLink
+{
+    text-align: center;
+}
+.more {
+ width:100px;
+ color:grey;    
+}
+
+.less {
+ cursor:pointer;   
 }

@@ -63,39 +63,12 @@ class UploadFormController extends Controller
     {
         $picture = new UploadForm();
         //$picture->tour_id = $id;
-        $picture->image = UploadedFile::getInstance($picture, 'image');
+        $picture->image = UploadedFile::getInstancesByName('attachment_'.$id.'');
+        //echo '<pre> File2: ' . print_r( $picture->image, TRUE). '</pre>'; die();
         $picture->id = $id;
         $picture->saveImages();
-
-        if ($picture->image !== null ) {
-
-            Yii::$app->response->getHeaders()->set('Vary', 'Accept');
-            Yii::$app->response->format = Response::FORMAT_JSON;
-
-            $response = [];
-
-            if ($picture->saveImages(false)) {
-                $response['files'][] = [
-                    'name' => $picture->image->name,
-                    'type' => $picture->image->type,
-                    'size' => $picture->image->size,
-                    'url' => 'http://localhost/olgaz2/images/'.$id.'/'.$picture->sBig.'/'.$picture->image->name,
-                    'thumbnailUrl' => 'http://localhost/olgaz2/images/'.$id.'/'.$picture->sThumb.'/'.$picture->image->name
-                ];
-                unlink('../../images/'.$id.'/'.$picture->image->name);
-            } else {
-                $response[] = ['error' => Yii::t('app', 'Unable to save picture')];
-            }
-            @unlink($picture->image->tempName);
-        } else {
-            if ($picture->hasErrors(['picture'])) {
-                $response[] = ['error' => HtmlHelper::errors($picture)];
-            } else {
-                throw new HttpException(500, Yii::t('app', 'Could not upload file.'));
-            }
-        }
         
-        return $response;
+       return true;
     }
     
 

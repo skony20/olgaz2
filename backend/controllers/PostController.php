@@ -99,7 +99,7 @@ class PostController extends Controller
         $model = $this->findModel($id);
 
        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => (string) $model->id]);
+            return $this->redirect(['index']);
         }elseif (Yii::$app->request->isAjax) {
             return $this->renderAjax('_form', [
                         'model' => $model
@@ -139,4 +139,9 @@ class PostController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+    public function actionDeleteimages($folder, $file) 
+    {
+        echo $folder.' TADAM ' .$file;
+    }
+
 }

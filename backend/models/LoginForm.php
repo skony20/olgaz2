@@ -39,16 +39,20 @@ class LoginForm extends Model
      * @param string $attribute the attribute currently being validated
      * @param array $params the additional name-value pairs given in the rule
      */
-    public function validatePassword($attribute, $params)
+    public function validatePassword()
     {
-        if (!$this->hasErrors()) {
-            $user = $this->getUser();
-
-            if (!$user || !$user->validatePassword($this->password)) {
-                $this->addError($attribute, 'Incorrect username or password.');
-            }
+        echo $this->password; die();
+        $hash = Yii::$app->getSecurity()->generatePasswordHash($this->password);
+        if (Yii::$app->getSecurity()->validatePassword($this->password, $hash)) 
+        {
+            return TRUE;
+        } 
+        else 
+        {
+            return FALSE;
         }
     }
+
 
     /**
      * Logs in a user using the provided username and password.

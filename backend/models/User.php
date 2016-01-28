@@ -3,15 +3,16 @@
 namespace app\models;
 
 
-use Yii;
 
+use Yii;
+use yii\base\Security; 
 /**
  * This is the model class for table "user".
  *
  * @property integer $id
  * @property string $username
  * @property string $auth_key
- * @property string $password_hash
+ * @property string $password
  * @property string $password_reset_token
  * @property string $email
  * @property integer $status
@@ -21,6 +22,10 @@ use Yii;
  */
 class User extends \yii\db\ActiveRecord  implements \yii\web\IdentityInterface 
 {
+    public $password_field;
+    public $passwordHashCost = 5;
+    public $passwordHashStrategy = 'password_hash';
+    
     /**
      * @inheritdoc
      */
@@ -35,13 +40,15 @@ class User extends \yii\db\ActiveRecord  implements \yii\web\IdentityInterface
     public function rules()
     {
         return [
-            [['username', 'auth_key', 'password_hash', 'email', 'created_at', 'updated_at'], 'required'],
+            [['username', 'auth_key', 'password', 'email', 'created_at', 'updated_at'], 'required'],
             [['status', 'created_at', 'updated_at', 'role_id'], 'integer'],
-            [['username', 'password_hash', 'password_reset_token', 'email'], 'string', 'max' => 255],
+            [['username', 'password', 'password_reset_token', 'email'], 'string', 'max' => 255],
+            [['firstname', 'lastname'], 'string', 'max' => 24],
             [['auth_key'], 'string', 'max' => 32],
             [['username'], 'unique'],
             [['email'], 'unique'],
-            [['password_reset_token'], 'unique']
+            [['password_reset_token'], 'unique'],
+            [['password_field'], 'string', 'min' => 6],   
         ];
     }
 
@@ -52,18 +59,22 @@ class User extends \yii\db\ActiveRecord  implements \yii\web\IdentityInterface
     {
         return [
             'id' => 'ID',
-            'username' => 'Username',
+            'username' => 'login',
+            'firstname' => 'Imię', 
+            'lastname' => 'Nazwisko',
             'auth_key' => 'Auth Key',
-            'password_hash' => 'Password Hash',
+            'password' => 'Hasło',
             'password_reset_token' => 'Password Reset Token',
             'email' => 'Email',
             'status' => 'Status',
-            'created_at' => 'Created At',
+            'created_at' => 'Utworzony',
             'updated_at' => 'Updated At',
             'role_id' => 'Role ID',
         ];
     }
-     public static function findIdentity($id)
+
+
+    public static function findIdentity($id)
     {
          return static::findOne($id);
     }
@@ -124,8 +135,8 @@ class User extends \yii\db\ActiveRecord  implements \yii\web\IdentityInterface
      * @param  string  $password password to validate
      * @return boolean if password provided is valid for current user
      */
-    public function validatePassword($password)
-    {
-        return $this->password_hash === $password;
-    }
+  
+    
+
 }
+

@@ -7,12 +7,14 @@ use yii\web\UploadedFile;
 use yii\web\Response;
 use yii\imagine\Image;
 use Imagine\Image\Box;
+use app\models\Post;
 
 class UploadForm extends Model
 {
     public $imageFiles;
     public $image;
     public $id;
+    public $sFileName;
     public $sPath = '../../images/';
     public $sThumb = 'thumbs'; //80x80
     public $iThumbSize = 80;
@@ -24,16 +26,7 @@ class UploadForm extends Model
     
     public function upload()
     {
-        
-        if ($this->validate()) { 
-            
-            foreach ($this->image as $file) {
-                $file->saveAs('c:/xampp/htdocs/olgaz2/images/' . $file->baseName . '.' . $file->extension);
-            }
-            return true;
-        } else {
             return false;
-        }
     }
     
     public function validate()
@@ -43,15 +36,30 @@ class UploadForm extends Model
     }
     public function saveImages()
     {
-        
+
+
+        $this->CaMDir($this->id);
+        $oPost = new Post();
+        $aPost = $oPost->findOne($this->id);
+        $sNiceName = $aPost['nice_link'];
         $sPath = $this->sPath.$this->id;
         //$files = $this->readDir($sPath);
+       
+        $files = $_FILES['attachment_'.$this->id.''];
+        $sMaxFiles = count($files['name']);
+        //echo '<pre> File2: ' . print_r($files, TRUE). '</pre>'; die();
+        for ($a=0; $a<$sMaxFiles; $a++)
+        {
+            $sNumberFiles = $this->readDir($sPath.'/'.$this->sThumb);
+            $iFileNumber = $sNumberFiles['max'];
+            $sFileName = $sNiceName.'-'.$iFileNumber;
+            $ext = substr($files['name'][$a], strrpos($files['name'][$a], '.') + 1);
+            move_uploaded_file($files['tmp_name'][$a], $sPath.'/'.$sFileName.'.'.$ext);
+            $this->resizeImage($sPath, $sFileName, $ext);
+        }
+
         
-        $this->CaMDir($this->id);
-                
-        $file = $this->image;
-        $file->saveAs($sPath.'/' .$file->baseName . '.' . $file->extension);
-        $this->resizeImage($sPath, $file);
+        
         return TRUE;
 
     }
@@ -59,6 +67,10 @@ class UploadForm extends Model
     {
         $oFiles = scandir($sPath);
         $aFiles = array_diff($oFiles, array('.','..'));
+        if (!is_dir($sPath)) 
+        {
+            $aFiles = '';
+        }
         return array('files'=>$aFiles, 'max' => count($aFiles));
     }
     public function CaMDir($id)
@@ -74,14 +86,13 @@ class UploadForm extends Model
         }
         return TRUE;
     }
-    public function resizeImage($sPath, $file)
+    public function resizeImage($sPath, $sFileName, $ext)
     {
-        Image::frame($sPath.'/'.$file->baseName . '.' . $file->extension)->thumbnail(new Box($this->iThumbSize, $this->iThumbSize))->save($sPath.'/' .$this->sThumb.'/' .$file->baseName . '.' . $file->extension, ['quality' => 100]);
-        Image::frame($sPath.'/'.$file->baseName . '.' . $file->extension)->thumbnail(new Box($this->iInfoSize, $this->iInfoSize))->save($sPath.'/' .$this->sInfo.'/' .$file->baseName . '.' . $file->extension, ['quality' => 100]);
-        Image::frame($sPath.'/'.$file->baseName . '.' . $file->extension)->thumbnail(new Box($this->iBigSize, $this->iBigSize))->save($sPath.'/' .$this->sBig.'/' .$file->baseName . '.' . $file->extension, ['quality' => 100]);
+        Image::frame($sPath.'/'.$sFileName . '.' . $ext, 0)->thumbnail(new Box($this->iThumbSize, $this->iThumbSize))->save($sPath.'/' .$this->sThumb.'/' .$sFileName . '.' . $ext, ['quality' => 100]);
+        Image::frame($sPath.'/'.$sFileName . '.' . $ext, 0)->thumbnail(new Box($this->iInfoSize, $this->iInfoSize))->save($sPath.'/' .$this->sInfo.'/' .$sFileName . '.' . $ext, ['quality' => 100]);
+        Image::frame($sPath.'/'.$sFileName . '.' . $ext, 0)->thumbnail(new Box($this->iBigSize, $this->iBigSize))->save($sPath.'/' .$this->sBig.'/' .$sFileName . '.' . $ext, ['quality' => 100]);
+        unlink($sPath.'/'.$sFileName . '.' . $ext);
         
     }
+
 }
-
-
-//Dopisac skalowaie picturów i subfoldery dorobić 
