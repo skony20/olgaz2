@@ -28,7 +28,7 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => 'My Company',
+        'brandLabel' => '100 % Handmade by OlgaZ',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
@@ -43,9 +43,9 @@ AppAsset::register($this);
             ['label' => 'Użytkownicy', 'url' => ['/user']],
             ['label' => 'Rodzaje użytkowników', 'url' => ['/roles']],
             Yii::$app->user->isGuest ?
-                ['label' => 'Login', 'url' => ['/site/login']] :
+                ['label' => 'Loguj', 'url' => ['/site/login']] :
                 [
-                    'label' => 'Logout (' . Yii::$app->user->identity->username . ')',
+                    'label' => 'Wyloguj (' . Yii::$app->user->identity->username . ')',
                     'url' => ['/site/logout'],
                     'linkOptions' => ['data-method' => 'post']
                 ],

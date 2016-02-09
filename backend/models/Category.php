@@ -40,8 +40,8 @@ class Category extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
-            'is_active' => 'Is Active',
+            'name' => 'Nazwa',
+            'is_active' => 'Aktywna ?',
         ];
     }
 }

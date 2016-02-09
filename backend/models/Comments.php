@@ -46,13 +46,13 @@ class Comments extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'content' => 'Content',
+            'content' => 'Treść',
             'nick' => 'Nick',
             'email' => 'Email',
-            'data_creation' => 'Data Creation',
-            'last_modification' => 'Last Modification',
-            'is_active' => 'Is Active',
-            'post_id' => 'Post ID',
+            'data_creation' => 'Daa utworzenia',
+            'last_modification' => 'Ostatnia modyfikacja',
+            'is_active' => 'Aktywny?',
+            'post_id' => 'Wpis ID',
         ];
     }
 }

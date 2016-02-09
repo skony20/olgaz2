@@ -138,3 +138,26 @@ a.DeleteIamgeButton:before
 {
     text-align: center;
 }
+.more_hidden
+{
+    display: none;
+}
+.more_visible
+
+{
+    display: block;    
+}
+.more
+{
+    margin: 10px 20px ;
+    text-align: justify;
+}
+.confirm-ok
+{
+    color:greenyellow;
+}
+.confirm-cancel
+{
+    color:#ff6666;
+}
+

@@ -9,6 +9,8 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use yii\helpers\BaseUrl;
+use yii\helpers\Url;
 
 /**
  * PostController implements the CRUD actions for Post model.
@@ -76,7 +78,7 @@ class PostController extends Controller
         $model = new Post();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index']);
+        return $this->redirect(Yii::$app->request->referrer);
         }elseif (Yii::$app->request->isAjax) {
             return $this->renderAjax('_form', [
                         'model' => $model
@@ -136,12 +138,18 @@ class PostController extends Controller
         if (($model = Post::findOne($id)) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+            throw new NotFoundHttpException('Strona nie istnieje.');
         }
     }
     public function actionDeleteimages($folder, $file) 
     {
-        echo $folder.' TADAM ' .$file;
+        $model = new Post();
+
+        
+        unlink($model->sPath . '' .$folder.'/' .$model->sBig.'/'.$file);
+        unlink($model->sPath . '' .$folder.'/' .$model->sInfo.'/'.$file);
+        unlink($model->sPath . '' .$folder.'/' .$model->sThumb.'/'.$file);
+        return $this->redirect(Yii::$app->request->referrer);
     }
 
 }

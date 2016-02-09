@@ -12,6 +12,7 @@ use yii\filters\AccessControl;
 use yii\web\UploadedFile;
 use yii\web\HttpException;
 use yii\web\Response;
+use app\models\Post;
 /**
  * CategoryController implements the CRUD actions for Category model.
  */
@@ -67,8 +68,7 @@ class UploadFormController extends Controller
         //echo '<pre> File2: ' . print_r( $picture->image, TRUE). '</pre>'; die();
         $picture->id = $id;
         $picture->saveImages();
-        
-       return true;
+        return $this->redirect(Yii::$app->request->referrer);
     }
     
 

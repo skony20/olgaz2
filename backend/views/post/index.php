@@ -93,7 +93,9 @@ $aUser = $oUser->findIdentity('1');
                             'pluginOptions' => [
                                 'uploadUrl' => Url::to(['upload-form/upload?id='.$PostValue['id'].'']),
                                 'uploadAsync' => false,
-                                'showPreview' => false,]
+                                'showPreview' => false,
+                                'showRemove' => false, 
+                                'allowedFileTypes' => array('image'),]
                         ]);
                             ?>
                     </div>
@@ -105,7 +107,7 @@ $aUser = $oUser->findIdentity('1');
                     <?= Html::a('Kasuj', ['delete', 'id' => $PostValue['id']], [
                            'class' => 'btn btn-danger',
                            'data' => [
-                               'confirm' => 'Jestes pewien??',
+                               'confirm' => 'Jesteś pewien?',
                                'method' => 'post',
                            ],
                     ]) ?>

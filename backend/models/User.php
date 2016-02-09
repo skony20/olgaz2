@@ -68,7 +68,7 @@ class User extends \yii\db\ActiveRecord  implements \yii\web\IdentityInterface
             'email' => 'Email',
             'status' => 'Status',
             'created_at' => 'Utworzony',
-            'updated_at' => 'Updated At',
+            'updated_at' => 'Zaktualizowany',
             'role_id' => 'Role ID',
         ];
     }

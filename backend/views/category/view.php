@@ -8,7 +8,7 @@ use yii\helpers\Url;
 /* @var $model app\models\Category */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Categories', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Kategorie', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="category-view">
@@ -17,10 +17,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::button('Aktualizuj', ['value' => Url::to(['category/update?id='.$model->id.'']), 'title' => 'Aktualizuj kategorię', 'class' => 'showModalButton btn btn-success']); ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+        <?= Html::a('Kasuj', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => 'Jesteś pewien?',
                 'method' => 'post',
             ],
         ]) ?>

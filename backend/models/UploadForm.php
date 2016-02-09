@@ -29,8 +29,6 @@ class UploadForm extends Model
 
     public function saveImages()
     {
-
-
         $this->CaMDir($this->id);
         $oPost = new Post();
         $aPost = $oPost->findOne($this->id);
@@ -40,31 +38,46 @@ class UploadForm extends Model
        
         $files = $_FILES['attachment_'.$this->id.''];
         $sMaxFiles = count($files['name']);
-        //echo '<pre> File2: ' . print_r($files, TRUE). '</pre>'; die();
+        $aNumberFiles = $this->readDir($sPath.'/'.$this->sThumb);
+        $sNumberFiles = $aNumberFiles['max'];
+        
         for ($a=0; $a<$sMaxFiles; $a++)
         {
-            $sNumberFiles = $this->readDir($sPath.'/'.$this->sThumb);
-            $iFileNumber = $sNumberFiles['max'];
+            $iFileNumber = $sNumberFiles+$a+1;            
             $sFileName = $sNiceName.'-'.$iFileNumber;
             $ext = substr($files['name'][$a], strrpos($files['name'][$a], '.') + 1);
             move_uploaded_file($files['tmp_name'][$a], $sPath.'/'.$sFileName.'.'.$ext);
             $this->resizeImage($sPath, $sFileName, $ext);
         }
-
-        
         
         return TRUE;
 
     }
     public function readDir($sPath)
     {
+        
         $oFiles = scandir($sPath);
         $aFiles = array_diff($oFiles, array('.','..'));
+        natsort($aFiles);
+        $aLastFile = explode('-', end($aFiles));
+        $aMaxFile = explode('.', end($aLastFile));
+        natsort($aMaxFile);
+       // echo '<pre>'. print_r($aMaxFile, TRUE). '</pre>';
+        if ($aMaxFile[0]!='') 
+        {
+            $iMaxFile = $aMaxFile[0];    
+        }
+        else
+        {
+            $iMaxFile = 0;
+        }
+        //echo '<pre>'.print_r($iMaxFile, TRUE).'</pre>';
+
         if (!is_dir($sPath)) 
         {
             $aFiles = '';
         }
-        return array('files'=>$aFiles, 'max' => count($aFiles));
+        return array('files'=>$aFiles, 'max' =>$iMaxFile);
     }
     public function CaMDir($id)
     {

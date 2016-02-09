@@ -68,14 +68,14 @@ class Post extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'title' => 'Title',
-            'content' => 'Content',
+            'title' => 'tytuł',
+            'content' => 'Tre sc',
             'short_content' => 'Krótki opis generowany automatycznie',
             'user_id' => 'Id użytkownika',
             'data_creation' => 'Daa utworzenia',
             'last_modification' => 'Ostania modyfikacja',
             'is_active' => 'Aktywny wpis ?',
-            'tags' => 'Tags',
+            'tags' => 'Tagi',
             'nice_link' => 'Nicename link(niepotrzebny)',
             'category_id' => 'Kategoria',
         ];
@@ -95,4 +95,5 @@ class Post extends \yii\db\ActiveRecord
         }
         return array('files'=>$aFiles);
     }
+
 }

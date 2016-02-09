@@ -4,22 +4,44 @@
  * and open the template in the editor.
  */
 $(document).ready(
+        
+        
+
+     
 	function()
 	{
-          var i;
-          var lastChildID =  $('.all').children().last().attr('id');
-          for (i=1; i<=lastChildID; i++)
-          {
-              
-          }   
+        function getCookie(name)
+        {
+          var re = new RegExp(name + "=([^;]+)");
+          var value = re.exec(document.cookie);
+          return (value !== null) ? unescape(value[1]) : null;
+        }
+        var i;
+        var lastChildID =  $('.all').children().last().attr('id');
+        for (i=1; i<=lastChildID; i++)
+        {   
+            var cookieId = 'more_'+i;
+            var x = getCookie(cookieId);
+            
+            element = '.more_' + i;
+            if (x === 'YES')
+            {
+                $(element).show();
+            }
+        }   
         $(".less").click(
-			function() {
-                        
-				var ID = ($(this).attr('id'));
-                        var postId = 'more_' + ID;
-                        element = '.more_' + ID;
-                        $(element).slideToggle('slow');
-                        document.cookie=""+postId+"=YES; expires=Thu, 18 Dec 2013 12:00:00 UTC";
-			}
-		);
+            function() {
+                var ID = ($(this).attr('id'));
+                var postId = 'more_' + ID;
+                element = '.more_' + ID;
+                $(element).toggle();
+                if ($(element).is(':visible') === true )
+                {
+                    document.cookie=""+postId+"=YES; expires=Thu, 01 Jan 2222 00:00:00 UTC";
+                }
+                if ($(element).is(':hidden') === true )
+                {
+                    document.cookie=""+postId+"=YES; expires=Thu, 01 Jan 1901 00:00:00 UTC";
+                }
+            });
 });

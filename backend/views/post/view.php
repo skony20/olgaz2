@@ -10,7 +10,7 @@ use yii\helpers\Url;
 /* @var $model app\models\Post */
 
 $this->title = $model->title;
-$this->params['breadcrumbs'][] = ['label' => 'Posts', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Wpisy', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="post-view">
@@ -22,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Kasuj', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Jestes pewien?',
+                'confirm' => 'Jesteś pewien?',
                 'method' => 'post',
             ],
         ]) ?>

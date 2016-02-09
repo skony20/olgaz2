@@ -7,7 +7,7 @@ use yii\helpers\Url;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Roles';
+$this->title = 'Typ użytkownika';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="roles-index">
@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-          <?= Html::button('Nowy wpis', ['value' => Url::to(['roles/create']), 'title' => 'Nowy wpis', 'class' => 'showModalButton btn btn-success']); ?>
+          <?= Html::button('Nowy typ', ['value' => Url::to(['roles/create']), 'title' => 'Nowy typ', 'class' => 'showModalButton btn btn-success']); ?>
     </p>
 
     <?= GridView::widget([
