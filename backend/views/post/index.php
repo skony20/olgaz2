@@ -8,6 +8,8 @@ use app\models\User;
 use yii\widgets\ActiveForm;
 use app\models\UploadForm;
 use kartik\file\FileInput;
+use yii\data\Pagination;
+use yii\widgets\LinkPager;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
@@ -120,7 +122,16 @@ $aUser = $oUser->findIdentity('1');
     }
     ?>
     </div>
-
+    <div class="pagging">
+        <?php
+        //echo '<pre>'. print_r ($aPost, TRUE). '</pre>'; die();
+        $pages->pageSize = 10;
+        echo LinkPager::widget([
+                'pagination' => $pages,
+                ]);
+        ?>
+    </div>
+    
 
 
 </div>

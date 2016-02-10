@@ -11,6 +11,7 @@ use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use yii\helpers\BaseUrl;
 use yii\helpers\Url;
+use yii\data\Pagination;
 
 /**
  * PostController implements the CRUD actions for Post model.
@@ -47,12 +48,20 @@ class PostController extends Controller
      */
     public function actionIndex()
     {
+        $query = Post::find();
+        $countQuery = clone $query;
+        $pages = new Pagination(['totalCount' => $countQuery->count()]);
+        $models = $query->offset($pages->offset)
+            ->limit($pages->limit)
+            ->all();
         $dataProvider = new ActiveDataProvider([
-            'query' => Post::find(),
+            'query' => Post::find(),            
         ]);
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,
+            'models' => $models,
+            'pages' => $pages,
         ]);
     }
 

@@ -4,6 +4,7 @@ namespace app\models;
 
 use Yii;
 use yii\behaviors\SluggableBehavior;
+
 /**
  * This is the model class for table "post".
  *
@@ -80,7 +81,7 @@ class Post extends \yii\db\ActiveRecord
             'category_id' => 'Kategoria',
         ];
     }
-    
+ 
     public function getImages($id) 
     {
         $sPath = $this->sPath.$id.'/'.$this->sThumb;
