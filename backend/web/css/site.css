@@ -1,6 +1,7 @@
 html,
 body {
     height: 100%;
+    font-family: Verdana
 }
 
 .wrap {
@@ -85,50 +86,77 @@ a.desc:after {
 .error-summary {
     color: #a94442;
     background: #fdf7f7;
-    border-left: 3px solid #eed3d7;
+    border-left: 3px solid #555459;
     padding: 10px 20px;
     margin: 0 0 15px 0;
 }
 .row_post 
 {
-    border: 1px solid #666666;
+    border: 1px solid #dfd7ca;
+}
+.row_post:nth-child(odd)>.less
+{
+    background-color: #f8f5f0;
+}
+.row_post:nth-child(even)>.less
+{
+}
+.less
+{
+    font-size: 14px;
+    padding: 5px 2px;
+    line-height: 26px;
 }
 .row_cont
 {
-
-    display: inline-block;
+   display: inline-block;
+}
+.id
+{
+    vertical-align: middle;
+    margin-right: 15px;
+    margin-left: 5px;
 }
 .more
 {
     display:none;
 }
 
-
-.active
-{
-    background-color: #CFC
-}
-.unactive
-{
-    background-color: #eed3d7
-}
 .editor
 {
-    float:right;
-    font-size:10px;
+    font-size: 9px;
+    vertical-align: top;
+    float: right;
+}
+.title:hover
+{
+    color: #7D7F76;
+    cursor: pointer;
 }
 .all_images
 {
     display:inline-block;
+    
 }
-a.DeleteIamgeButton
+.single_image
 {
-    color:#800000;
+    display:inline-block;
+    margin: 5px 5px;
+    
+}
+.PostImage
+{
+    display: inline;
+    vertical-align: bottom;
+}
+a.DeleteImageButton
+{
+    color:#c9302c;
     text-decoration: none;
     font-size:10px;
     
 }
-a.DeleteIamgeButton:before
+a.DeleteImageButton:before
 {
     font-family: 'Glyphicons Halflings';
     content:"\e014";
@@ -149,8 +177,20 @@ a.DeleteIamgeButton:before
 }
 .more
 {
-    margin: 10px 20px ;
+    margin: 20px 0px;
     text-align: justify;
+}
+.content, .pictures
+{
+    padding: 0px 20px
+}
+.pictures
+{
+    background-color: #f5f5f5;
+    padding:20px 20px 40px 20px; 
+    margin-top:20px;
+    border-top: 1px #dfd7ca solid;
+    border-bottom: 1px #dfd7ca solid;
 }
 .confirm-ok
 {
@@ -160,4 +200,59 @@ a.DeleteIamgeButton:before
 {
     color:#ff6666;
 }
+.div-inline
+{
+    display: inline-block;
+}
+.rightMore
+{
+    margin-top:20px;
+    float:right;
+    margin: 20px 20px 0 0;
+}
 
+/*Login Page*/
+.site-login
+{
+    width:450px;
+    margin: 0 auto;
+    background-color: rgba(255, 255, 255, 0.8);;
+    padding: 20px 50px;
+    position: relative;
+    top: 100px;
+    border: 1px #dfd7ca solid;
+    border-radius: 15px;
+}
+.login-body
+{
+    background-color: #79756F;
+    margin:0;
+}
+.submit-login
+{
+    background-color: #79756F;
+    border: 1px #dfd7ca solid;
+    border-radius: 1px;
+    color:#dfd7ca;
+    padding: 5px 20px;
+}
+.status_icon
+{
+    display: block;
+    position: relative;
+    top: -26px;
+    left: -26px;
+    height: 0px;
+}
+.activePost
+{
+    color:#93c54b;
+}
+.unactivePost
+{
+    color: #d9534f;
+}
+.ActiveLink:hover, .ActiveLink:focus
+{
+    text-decoration: none
+}

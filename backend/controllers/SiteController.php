@@ -24,11 +24,11 @@ class SiteController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['login', 'error', 'about', 'uploadform', 'contact'],
+                        'actions' => ['login', 'error', 'about', 'contact'],
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index', 'about', 'uploadform', 'contact'],
+                        'actions' => ['logout', 'index'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -62,6 +62,7 @@ class SiteController extends Controller
 
     public function actionLogin()
     {
+        $this->layout='login_page';
         if (!\Yii::$app->user->isGuest) {
             return $this->goHome();
         }

@@ -10,6 +10,7 @@ use app\models\UploadForm;
 use kartik\file\FileInput;
 use yii\data\Pagination;
 use yii\widgets\LinkPager;
+use yii\widgets\Pjax;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
@@ -20,6 +21,7 @@ $oUser = new User();
 $oUploadForm = new UploadForm();
 $aPost = $dataProvider->getModels(); 
 $aUser = $oUser->findIdentity('1');
+$cos = 'NIC';
 ?>
 <?php $this->registerJsFile(Yii::$app->request->baseUrl.'/js/jquery.cookie.js',['depends' => [\yii\web\JqueryAsset::className()]]); ?>
 
@@ -32,7 +34,6 @@ $aUser = $oUser->findIdentity('1');
     </p>
 
 
-<?= Html::encode($oPost->id); ?> 
     <div class="all">
     <?php
 
@@ -40,50 +41,45 @@ $aUser = $oUser->findIdentity('1');
     {
         $aUser = $oUser->findIdentity($PostValue['user_id']);
         $aImages = $oPost->getImages($PostValue['id']); // tutaj będzie tabela z obrazkami
-    ?>
-            <div id="<?=$PostValue['id']?>">
-            <div class="row_post less <?php echo ($PostValue['is_active'] ? 'active' : 'unactive') ?>" id="<?=$PostValue['id']?>">
+        $sPath = yii\helpers\BaseUrl::home();
+    ?>  
+       
+            <div id="<?=$PostValue['id']?>" class="row_post">
+            <div class="less <?php echo ($PostValue['is_active'] ? 'active' : 'unactive') ?>" id="<?=$PostValue['id']?>">
+                
                 <div class="row_cont id"><?=$PostValue['id']?></div>
                 <div class="row_cont title"><?=$PostValue['title']?></div>
                 <div class="row_cont editor">
-                    Utworzone przez: <?=$aUser['username']?> dnia <?php echo date('Y-m-d h:m:s', $PostValue['data_creation']);?>
+                    <?=$aUser['username']?>: <?php echo date('Y-m-d h:m', $PostValue['data_creation']);?>
                 </div>
             </div>
+            <?php
+            $sButton ="<div class='glyphicon glyphicon-stop status_icon ".($PostValue['is_active'] ? 'activePost' : 'unactivePost')." title='".($PostValue['is_active'] ? 'Wyłącz wpis' : 'Włącz wpis') ."'></div>";
+            ?>
+<?= Html::a($sButton, ['post/activeunactive', 'id' => $PostValue['id'], 'p_sActive' => ($PostValue['is_active'] ? 'active' : 'unactive')], ['class'=> 'ActiveLink']) ?>
             <div class="row more more_<?=$PostValue['id']?>" id="<?=$PostValue['id']?>">
                 <div class="content"><?=$PostValue['content']?></div>
-                <div class="pictures">
-                    <div class="picTitle">Obrazki do wpisu:</div>
-                    <div class="actual_pictures">
-                        <?php $items = [];
-                        $sPath = yii\helpers\BaseUrl::home();
-                        ?>
-                        
-                        <?php foreach ($aImages['files'] as $ImagesKey=>$ImagesValue)
+                <div class="pictures">Obrazki do wpisu:<br>
+                    <div class="all_images">
+                        <?php
+                        foreach ($aImages['files'] as $ImagesKey=>$ImagesValue)
                         {
-                            $items[]  = array(
-                            'url' => $sPath.$oUploadForm->sPath.$PostValue['id'].'/'.$oUploadForm->sBig.'/'.$ImagesValue,
-                            'src' => $sPath.$oUploadForm->sPath.$PostValue['id'].'/'.$oUploadForm->sThumb.'/'.$ImagesValue,
-                            'rel' => $PostValue['id'],
-                            'rel2' => $ImagesValue,
-                            );
+                            echo '<div class="single_image">';
+                            echo '<div class="PostImage">';
+                            echo  Html::a(HTml::img($sPath.$oUploadForm->sPath.$PostValue['id'].'/'.$oUploadForm->sThumb.'/'.$ImagesValue), $sPath.$oUploadForm->sPath.$PostValue['id'].'/'.$oUploadForm->sBig.'/'.$ImagesValue, ['target' => '_blank']);
+                            echo '</div>';
+                            echo '<div class=" DeleteImageLink">';
+                            echo Html::a('Kasuj', ['deleteimages', 'folder' => $PostValue['id'], 'file' => $ImagesValue], [
+                           'class' => 'DeleteImageButton',
+                           'data' => [
+                               'confirm' => 'Jesteś pewien?',
+                               'method' => 'post',
+                           ],
+                    ]);
+                            echo '</div>';
+                            echo '</div>';
+                            
                         }
-                          ?>
-                        <?php 
-                        echo dosamigos\gallery\Gallery::widget([
-                            'items' => $items,
-                            'options' => [
-                                'id' => 'gallery-widget-' . $PostValue['id'],
-                                'thumbnailIndicators'=> false
-                            ],
-                            'templateOptions' => [
-                                'id' => 'blueimp-gallery-' . $PostValue['id']
-                            ],
-                            'clientOptions' => [
-                                'container' => '#blueimp-gallery-' . $PostValue['id']
-                            ]
-
-                        ]);
-
                         ?>
                     </div>
                     <div class="add_picture">
@@ -91,22 +87,25 @@ $aUser = $oUser->findIdentity('1');
                         echo FileInput::widget([
                             'model' => $oUploadForm,
                             'name' => 'attachment_'.$PostValue['id'].'[]',
+                            'language' => 'pl',
                             'options' => ['multiple' => true],
+                            
                             'pluginOptions' => [
                                 'uploadUrl' => Url::to(['upload-form/upload?id='.$PostValue['id'].'']),
                                 'uploadAsync' => false,
-                                'showPreview' => false,
                                 'showRemove' => false, 
-                                'allowedFileTypes' => array('image'),]
+                                'showPreview' => false,
+                                'allowedFileTypes' => array('image'),
+                                ]
                         ]);
                             ?>
                     </div>
               
                 </div>
-                <div class="right_more">
+                <div class="rightMore">
                     <p>
-                    <?= Html::button('Zmień', ['value' => Url::to(['post/update?id='.$PostValue['id']]), 'title' => 'Aktualizuj wpis', 'class' => 'showModalButton btn btn-success']); ?>
-                    <?= Html::a('Kasuj', ['delete', 'id' => $PostValue['id']], [
+                    <?= Html::button('Zmień wpis', ['value' => Url::to(['post/update?id='.$PostValue['id']]), 'title' => 'Aktualizuj wpis', 'class' => 'showModalButton btn btn-success']); ?>
+                    <?= Html::a('Kasuj wpis', ['delete', 'id' => $PostValue['id']], [
                            'class' => 'btn btn-danger',
                            'data' => [
                                'confirm' => 'Jesteś pewien?',
@@ -120,12 +119,12 @@ $aUser = $oUser->findIdentity('1');
 
     <?php    
     }
+  
     ?>
     </div>
     <div class="pagging">
         <?php
-        //echo '<pre>'. print_r ($aPost, TRUE). '</pre>'; die();
-        $pages->pageSize = 10;
+        $pages->pageSize = 25;
         echo LinkPager::widget([
                 'pagination' => $pages,
                 ]);

@@ -53,7 +53,14 @@ class LoginForm extends Model
             return FALSE;
         }
     }
-
+    public function attributeLabels()
+    {
+        return [
+            'username' => 'Użytkownik: ',
+            'password' => 'Hasło: ',
+            'rememberMe' => 'Pamiętaj mnie'
+        ];
+    }
     /**
      * Logs in a user using the provided username and password.
      *

@@ -31,13 +31,13 @@ AppAsset::register($this);
         'brandLabel' => '100 % Handmade by OlgaZ',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
-            'class' => 'navbar-inverse navbar-fixed-top',
+            'class' => 'navbar navbar-default navbar-fixed-top',
         ],
     ]);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-            ['label' => 'Wpisy', 'url' => ['/post']],
+            ['label' => 'Wpisy', 'url' => ['/post/']],
             ['label' => 'Komentarze', 'url' => ['/comments']],
             ['label' => 'Kategorie', 'url' => ['/category']],
             ['label' => 'Użytkownicy', 'url' => ['/user']],

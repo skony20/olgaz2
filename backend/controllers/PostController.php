@@ -55,7 +55,7 @@ class PostController extends Controller
             ->limit($pages->limit)
             ->all();
         $dataProvider = new ActiveDataProvider([
-            'query' => Post::find(),            
+            'query' => Post::find()->orderBy('id DESC'),
         ]);
 
         return $this->render('index', [
@@ -86,13 +86,22 @@ class PostController extends Controller
     {
         $model = new Post();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-        return $this->redirect(Yii::$app->request->referrer);
-        }elseif (Yii::$app->request->isAjax) {
+         $post = Yii::$app->request->post();
+
+        if ($model->load($post)) {
+            $model->user_id = $userId = \Yii::$app->user->identity->id;
+            if ($model->save()) {
+                return $this->redirect(Yii::$app->request->referrer);
+            }
+        }
+        elseif (Yii::$app->request->isAjax) 
+        {
             return $this->renderAjax('_form', [
                         'model' => $model
             ]);
-        } else {
+        } 
+        else 
+        {
             return $this->render('_form', [
                         'model' => $model
             ]);
@@ -152,13 +161,22 @@ class PostController extends Controller
     }
     public function actionDeleteimages($folder, $file) 
     {
-        $model = new Post();
-
-        
+        $model = new Post();  
         unlink($model->sPath . '' .$folder.'/' .$model->sBig.'/'.$file);
         unlink($model->sPath . '' .$folder.'/' .$model->sInfo.'/'.$file);
         unlink($model->sPath . '' .$folder.'/' .$model->sThumb.'/'.$file);
         return $this->redirect(Yii::$app->request->referrer);
+    }
+    public function actionActiveunactive($id, $p_sActive)
+    {
+        $bActive = ($p_sActive == 'active' ? 0 : 1);
+        $model = $this->findModel($id);
+        $model->is_active = $bActive;
+        if ($model->save())
+        {
+             return $this->redirect(Yii::$app->request->referrer);
+        }
+        return FALSE;
     }
 
 }

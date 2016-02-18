@@ -35,7 +35,7 @@ class UploadForm extends Model
         $sNiceName = $aPost['nice_link'];
         $sPath = $this->sPath.$this->id;
         //$files = $this->readDir($sPath);
-       
+        //echo '<pre>' .print_r($_FILES, TRUE). '</pre>'; die();
         $files = $_FILES['attachment_'.$this->id.''];
         $sMaxFiles = count($files['name']);
         $aNumberFiles = $this->readDir($sPath.'/'.$this->sThumb);
@@ -99,6 +99,13 @@ class UploadForm extends Model
         Image::frame($sPath.'/'.$sFileName . '.' . $ext, 0)->thumbnail(new Box($this->iBigSize, $this->iBigSize))->save($sPath.'/' .$this->sBig.'/' .$sFileName . '.' . $ext, ['quality' => 100]);
         unlink($sPath.'/'.$sFileName . '.' . $ext);
         
+    }
+    public function GetImages($id) 
+    {
+        $Images =  array(array('thumb' => 'url/to/thumb.ext',
+            'original' => 'url/to/original.ext',
+            'title' => 'optional title'));
+        //echo '<pre>' .print_r($Images, TRUE).'</pre>';
     }
 
 }

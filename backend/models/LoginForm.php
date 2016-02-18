@@ -41,7 +41,6 @@ class LoginForm extends Model
      */
     public function validatePassword()
     {
-        echo $this->password; die();
         $hash = Yii::$app->getSecurity()->generatePasswordHash($this->password);
         if (Yii::$app->getSecurity()->validatePassword($this->password, $hash)) 
         {

@@ -70,7 +70,7 @@ class Post extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'title' => 'tytuł',
-            'content' => 'Tre sc',
+            'content' => 'Treść',
             'short_content' => 'Krótki opis generowany automatycznie',
             'user_id' => 'Id użytkownika',
             'data_creation' => 'Daa utworzenia',
