@@ -125,8 +125,7 @@ a.desc:after {
 .editor
 {
     font-size: 9px;
-    vertical-align: top;
-    float: right;
+    vertical-align: middle !important;
 }
 .title:hover
 {
@@ -239,10 +238,6 @@ a.DeleteImageButton:before
 .status_icon
 {
     display: block;
-    position: relative;
-    top: -26px;
-    left: -26px;
-    height: 0px;
 }
 .activePost
 {

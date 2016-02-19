@@ -18,6 +18,10 @@ return [
             'identityClass' => 'common\models\User',
             'enableAutoLogin' => true,
         ],
+        'formatter' =>[
+            'datetimeFormat' => 'dd-mm-Y  HH:i:ss',
+            'dateFormat' => 'dd-MM-Y',
+        ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [

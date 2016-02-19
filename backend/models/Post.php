@@ -69,11 +69,11 @@ class Post extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'title' => 'tytuł',
+            'title' => 'Tytuł',
             'content' => 'Treść',
             'short_content' => 'Krótki opis generowany automatycznie',
             'user_id' => 'Id użytkownika',
-            'data_creation' => 'Daa utworzenia',
+            'data_creation' => 'Data utworzenia',
             'last_modification' => 'Ostania modyfikacja',
             'is_active' => 'Aktywny wpis ?',
             'tags' => 'Tagi',

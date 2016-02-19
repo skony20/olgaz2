@@ -41,17 +41,17 @@ $(document).ready(
                     document.cookie=""+postId+"=YES; expires=Thu, 01 Jan 1901 00:00:00 UTC";
                 }
             });
-//        $('.status_icon').on('click', function(e) {
-//
-//            var iId = ($(this).attr('rel'));
-//            var sActive = ($(this).attr('rel2')); 
-//            $.ajax({
-//                url: 'post/activeunactive',
-//                data: {id: iId, p_sSctive: sActive},
-//                success: function(data) {
-//                    location.reload();
-//                }
-//             });
-//        });
+        $('.status_icon').on('click', function(e) {
+
+            var iId = ($(this).attr('rel'));
+            var sActive = ($(this).attr('rel2')); 
+            $.ajax({
+                url: 'activeunactive',
+                data: {id: iId, p_sSctive: sActive},
+                success: function(data) {
+                    location.reload();
+                }
+             });
+        });
 });
 
