@@ -90,126 +90,56 @@ a.desc:after {
     padding: 10px 20px;
     margin: 0 0 15px 0;
 }
-.row_post 
-{
-    border: 1px solid #dfd7ca;
-}
-.row_post:nth-child(odd)>.less
-{
-    background-color: #f8f5f0;
-}
-.row_post:nth-child(even)>.less
-{
-}
-.less
-{
-    font-size: 14px;
-    padding: 5px 2px;
-    line-height: 26px;
-}
+
 .row_cont
 {
    display: inline-block;
 }
-.id
-{
-    vertical-align: middle;
-    margin-right: 15px;
-    margin-left: 5px;
-}
-.more
-{
-    display:none;
-}
+
 
 .editor
 {
     font-size: 9px;
     vertical-align: middle !important;
 }
-.title:hover
-{
-    color: #7D7F76;
-    cursor: pointer;
-}
-.all_images
-{
-    display:inline-block;
-    
-}
-.single_image
-{
-    display:inline-block;
-    margin: 5px 5px;
-    
-}
+
 .PostImage
 {
     display: inline;
     vertical-align: bottom;
-}
-a.DeleteImageButton
-{
-    color:#c9302c;
-    text-decoration: none;
-    font-size:10px;
-    
-}
-a.DeleteImageButton:before
-{
-    font-family: 'Glyphicons Halflings';
-    content:"\e014";
-    font-size:10px;
-}
-.DeleteImageLink
-{
+    max-height: 40px;
+    max-width: 40px;
     text-align: center;
 }
-.more_hidden
+.status_icon
 {
-    display: none;
+    display: block;
 }
-.more_visible
-
+.activePost
 {
-    display: block;    
+    color:#93c54b;
+    cursor: pointer;
 }
-.more
+.unactivePost
 {
-    margin: 20px 0px;
-    text-align: justify;
+    color: #d9534f;
+    cursor: pointer;
 }
-.content, .pictures
+.ActiveLink:hover, .ActiveLink:focus
 {
-    padding: 0px 20px
+    text-decoration: none
 }
-.pictures
+td.text-center
 {
-    background-color: #f5f5f5;
-    padding:20px 20px 40px 20px; 
-    margin-top:20px;
-    border-top: 1px #dfd7ca solid;
-    border-bottom: 1px #dfd7ca solid;
+    vertical-align: middle !important;
 }
-.confirm-ok
+button.addPostImages
 {
-    color:greenyellow;
+    margin:0;
+    padding: 0;
+    border: 0;
+    background: none;
 }
-.confirm-cancel
-{
-    color:#ff6666;
-}
-.div-inline
-{
-    display: inline-block;
-}
-.rightMore
-{
-    margin-top:20px;
-    float:right;
-    margin: 20px 20px 0 0;
-}
-
 /*Login Page*/
 .site-login
 {
@@ -235,19 +165,69 @@ a.DeleteImageButton:before
     color:#dfd7ca;
     padding: 5px 20px;
 }
-.status_icon
+.more
 {
-    display: block;
+    display: none;
 }
-.activePost
+.next-thumb
 {
-    color:#93c54b;
+    margin: 0;
+    padding: 0;
+    float:right;
+    -webkit-transition: 0.2s linear;
+    -moz-transition: 0.2s linear;
+    -o-transition: 0.2s linear;
+    transition: 0.2s linear;
 }
-.unactivePost
+.next-thumb:hover
 {
-    color: #d9534f;
+    -webkit-transition: 0.2s linear;
+    -moz-transition: 0.2s linear;
+    -o-transition: 0.2s linear;
+    transition: 0.2s linear;
+    -ms-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
 }
-.ActiveLink:hover, .ActiveLink:focus
+.without-left
 {
-    text-decoration: none
+    border-left:0 !important;
+    margin-left: -20px;
+}
+.without-right
+{
+    border-right:0 !important;
+}
+.post-image
+{
+    display: inline-block;
+    padding: 0 5px;
+    vertical-align: bottom
+}
+
+.messages
+{
+    position: fixed;
+    right: 50px;
+    top: 55px;
+    padding: 20px 0;
+    width: 350px;
+    text-align: center;
+    box-shadow: 2px 2px 4px rgba(115, 115, 115, 0.75);
+    border-radius: 4px;
+    color:#3c763d;
+    line-height: 18px;
+    font-weight: 900;
+}
+.messages:before
+{
+    padding-right: 20px;
+    font-family: 'Glyphicons Halflings';
+    font-style: normal;
+    font-weight: 400;
+    line-height: 18px;
+    font-size:18px;
+    content: "\e013";
+    color:#3c763d;
 }

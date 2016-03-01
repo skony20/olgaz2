@@ -100,12 +100,5 @@ class UploadForm extends Model
         unlink($sPath.'/'.$sFileName . '.' . $ext);
         
     }
-    public function GetImages($id) 
-    {
-        $Images =  array(array('thumb' => 'url/to/thumb.ext',
-            'original' => 'url/to/original.ext',
-            'title' => 'optional title'));
-        //echo '<pre>' .print_r($Images, TRUE).'</pre>';
-    }
 
 }

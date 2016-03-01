@@ -12,6 +12,7 @@ use yii\filters\AccessControl;
 use yii\helpers\BaseUrl;
 use yii\helpers\Url;
 use yii\data\Pagination;
+use yii\web\Session;
 
 /**
  * PostController implements the CRUD actions for Post model.
@@ -130,7 +131,21 @@ class PostController extends Controller
             ]);
         }
     }
-
+    public function actionInsertimages($id)
+    {
+        $model = $this->findModel($id);
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                    return $this->redirect(['index']);
+                }elseif (Yii::$app->request->isAjax) {
+                    return $this->renderAjax('_uploadfiles', [
+                                'model' => $model
+                    ]);
+                } else {
+                    return $this->render('_uploadfiles', [
+                                'model' => $model
+                    ]);
+                }
+    }
     /**
      * Deletes an existing Post model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
@@ -170,11 +185,14 @@ class PostController extends Controller
     public function actionActiveunactive($id, $p_sActive)
     {
         $bActive = ($p_sActive == 'active' ? 0 : 1);
+        $sActiveMessage = ($p_sActive == 'active' ? 'wyłączony' : 'włączony');
         $model = $this->findModel($id);
         $model->is_active = $bActive;
         if ($model->save())
         {
-             return $this->redirect(Yii::$app->request->referrer);
+            $oSession = new Session();
+            $oSession->addFlash('success', 'Post '.$id.' został '.$sActiveMessage.'');
+            return $this->redirect(Yii::$app->request->referrer);
         }
         return FALSE;
     }

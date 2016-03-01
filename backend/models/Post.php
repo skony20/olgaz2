@@ -92,9 +92,12 @@ class Post extends \yii\db\ActiveRecord
             $oFiles = scandir($sPath);
             $aFiles = array_diff($oFiles, array('.','..'));
             natsort($aFiles);
-           // echo ' <pre>'. print_r($aFiles, TRUE). '</pre>'; die();
+            return $aFiles;
         }
-        return array('files'=>$aFiles);
+        
+        
+                
+        
     }
 
 }
